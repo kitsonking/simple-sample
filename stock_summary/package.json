@@ -1,0 +1,9 @@
+{
+  "name": "stock_summary",
+  "version": "1.0.0",
+  "dependencies": {
+    "puppeteer": "^4.0.1",
+    "cheerio": "^1.0.0-rc.3",
+    "json2csv": "latest"
+  }
+}

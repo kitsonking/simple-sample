@@ -1,0 +1,28 @@
+const puppeteer = require('puppeteer');
+const $ = require('cheerio');
+
+const getData = function(html){
+  var finStrength = $("a:contains('Financial Strength')", html).closest("td").next().text().trim();
+  return {
+    finStrength: finStrength
+  }
+}
+
+const getStat = async function(symbol){
+  let url = `https://www.gurufocus.com/stock/${symbol}/summary`
+
+  const browser = await puppeteer.launch();
+  const page = await browser.newPage();
+  await page.goto(url);
+  const html = await page.content();
+
+  // Get the content here
+  var result = Object.assign({ "symbol": symbol}, getData(html));
+
+  await browser.close();
+  return result
+}
+
+getStat("HD").then((result) => {
+  console.log(result)
+})
